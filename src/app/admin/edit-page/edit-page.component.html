@@ -1,0 +1,31 @@
+<div *ngIf="form; else loading">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div [ngClass]="{ invalid: form.get('title').touched && form.get('title').invalid }"
+         class="form-control">
+      <label for="title">Название поста</label>
+      <input formControlName="title" id="title" type="text">
+      <div
+        *ngIf="form.get('title').touched && form.get('title').invalid"
+        class="validation">
+        <small *ngIf="form.get('title').errors.required">
+          Введите заголовок поста</small>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <quill-editor formControlName="text">
+
+      </quill-editor>
+    </div>
+
+    <button
+      class="btn btn-primary"
+      type="submit"
+      [disabled]="form.invalid || submited"
+    >Обновить</button>
+  </form>
+</div>
+
+<ng-template #loading>
+  <p>Идет загрузка</p>
+</ng-template>
